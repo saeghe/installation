@@ -57,7 +57,7 @@ else
   echo "Add Saeghe to bash"
   echo $EXPORT_PATH >> $HOME/.bashrc
   bash
-  source $HOME/.bahrc
+  source $HOME/.bashrc
 fi
 
 echo Installation finished successfully. Enjoy.
