@@ -47,7 +47,7 @@ DEFAULT_SHELL=$(echo $SHELL)
 
 EXPORT_PATH='export PATH="$PATH:'$SAEGHE_SOURCE_PATH'"'
 
-if [[ "$DEFAULT_SHELL" == "/bin/zsh" ]]
+if [ "$DEFAULT_SHELL" == "/bin/zsh" ]
 then
   echo "Add Saeghe to zsh"
   echo $EXPORT_PATH >> $HOME/.zshrc
