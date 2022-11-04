@@ -78,5 +78,11 @@ else
 fi
 
 echo -e "${YELLOW}- Please open a new terminal to start working with Saeghe.${DEFAULT_COLOR}"
-echo -e "${YELLOW}- Please add your credential using the credential command. Visit https://saeghe.com/documentations/credential-command ${DEFAULT_COLOR}"
-echo -e "${GREEN}Installation finished successfully. Enjoy.${DEFAULT_COLOR}"
+if [ -z "${GITHUB_TOKEN}" ];
+then
+  echo -e "${YELLOW}- Please add your credential using the credential command. Visit https://saeghe.com/documentations/credential-command ${DEFAULT_COLOR}"
+else
+  echo -e "${GREEN}- GITHUB_TOKEN found in environment variables. No need to add token for GitHub."
+fi
+
+echo -e "\n${GREEN}Installation finished successfully. Enjoy.${DEFAULT_COLOR}"
