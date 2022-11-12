@@ -30,6 +30,7 @@ SAEGHE_HOME=$HOME/.saeghe
 SAEGHE_SOURCE_PATH=$HOME/.saeghe/saeghe
 SAEGHE_PACKAGES_PATH=$SAEGHE_SOURCE_PATH/Packages
 SAEGHE_CLI_PACKAGES_PATH=$SAEGHE_SOURCE_PATH/Packages/saeghe/cli
+SAEGHE_DATATYPE_PACKAGES_PATH=$SAEGHE_SOURCE_PATH/Packages/saeghe/datatype
 
 echo "Make Saeghe directory"
 mkdir -p $SAEGHE_HOME
@@ -40,11 +41,17 @@ echo -e "Saeghe version: ${GREEN}${SAEGHE_LATEST_RELEASE}${DEFAULT_COLOR}"
 CLI_LATEST_RELEASE=$(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/saeghe/cli/releases | grep "tag_name" | grep v\[0-9a-z\.]\\+ -o | head -n 1)
 echo -e "CLI version: ${GREEN}${CLI_LATEST_RELEASE}${DEFAULT_COLOR}"
 
+DATATYPE_LATEST_RELEASE=$(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/saeghe/datatype/releases | grep "tag_name" | grep v\[0-9a-z\.]\\+ -o | head -n 1)
+echo -e "Datatype version: ${GREEN}${DATATYPE_LATEST_RELEASE}${DEFAULT_COLOR}"
+
 echo -e "Start downloading Saeghe version: ${GREEN}${SAEGHE_LATEST_RELEASE}${DEFAULT_COLOR}"
 curl -s -L https://github.com/saeghe/saeghe/zipball/$SAEGHE_LATEST_RELEASE > $SAEGHE_HOME/saeghe.zip
 
 echo -e "Start downloading CLI version: ${GREEN}${CLI_LATEST_RELEASE}${DEFAULT_COLOR}"
 curl -s -L https://github.com/saeghe/cli/zipball/$CLI_LATEST_RELEASE > $SAEGHE_HOME/cli.zip
+
+echo -e "Start downloading Datatype version: ${GREEN}${CLI_LATEST_RELEASE}${DEFAULT_COLOR}"
+curl -s -L https://github.com/saeghe/datatype/zipball/$DATATYPE_LATEST_RELEASE > $SAEGHE_HOME/datatype.zip
 
 echo -e "${GREEN}Download finished${DEFAULT_COLOR}"
 
@@ -60,6 +67,13 @@ unzip -q -o $HOME/.saeghe/cli.zip -d $SAEGHE_PACKAGES_PATH
 mkdir -p $SAEGHE_PACKAGES_PATH/saeghe
 CLI_DIRECTORY=$(ls $SAEGHE_PACKAGES_PATH | grep saeghe-cli)
 mv $SAEGHE_PACKAGES_PATH/$CLI_DIRECTORY $SAEGHE_CLI_PACKAGES_PATH
+
+echo "Install Datatype"
+rm -fR $SAEGHE_DATATYPE_PACKAGES_PATH
+unzip -q -o $HOME/.saeghe/datatype.zip -d $SAEGHE_PACKAGES_PATH
+mkdir -p $SAEGHE_PACKAGES_PATH/saeghe
+DATATYPE_DIRECTORY=$(ls $SAEGHE_PACKAGES_PATH | grep saeghe-datatype)
+mv $SAEGHE_PACKAGES_PATH/$DATATYPE_DIRECTORY $SAEGHE_DATATYPE_PACKAGES_PATH
 
 echo "Make credential file"
 cp $SAEGHE_SOURCE_PATH/credentials.example.json $SAEGHE_SOURCE_PATH/.credential
