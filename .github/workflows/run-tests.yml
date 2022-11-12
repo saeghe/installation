@@ -31,5 +31,7 @@ jobs:
       - name: Install Saeghe
         run: bash -c "$(curl -fsSL https://raw.github.com/saeghe/installation/master/install.sh)"
 
-      - name: Set Credentials
-        run: saeghe credential github.com ${{ secrets.GITHUB_TOKEN }}
+      - name: Test Saeghe
+        run: |
+          source ~/.bashrc 
+          saeghe credential github.com ${{ secrets.GITHUB_TOKEN }}
