@@ -1,0 +1,40 @@
+name: run-tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        php: [8.2, 8.1, 8.0]
+
+    name: P${{ matrix.php }} - ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, mbstring, zip
+          coverage: none
+
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.6.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Install Saeghe
+        run: bash -c "$(curl -fsSL https://raw.github.com/saeghe/installation/master/install.sh)"
+
+      - name: Set Credentials
+        run: saeghe credential github.com ${{ secrets.GITHUB_TOKEN }}

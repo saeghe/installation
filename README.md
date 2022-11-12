@@ -7,5 +7,5 @@ This is the installation script for installing Saeghe package manager. You can s
 Run following command to install Saeghe:
 
 ```shell
-sh -c "$(curl -fsSL https://raw.github.com/saeghe/installation/master/install.sh)"
+bash -c "$(curl -fsSL https://raw.github.com/saeghe/installation/master/install.sh)"
 ```
