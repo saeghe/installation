@@ -32,4 +32,4 @@ jobs:
         run: bash -c "$(curl -fsSL https://raw.github.com/saeghe/installation/master/install.sh)"
 
       - name: Test Saeghe
-        run: ~/.saeghe/saeghe credential github.com ${{ secrets.GITHUB_TOKEN }}
+        run: ~/.saeghe/saeghe/saeghe credential github.com ${{ secrets.GITHUB_TOKEN }}
